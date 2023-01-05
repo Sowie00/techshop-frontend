@@ -1,41 +1,41 @@
-import axios from "axios";
+import axios from 'axios';
 import {
   orderCreateFail,
   orderCreateRequest,
   orderCreateSuccess,
-} from "../reducers/orderReducer";
+} from '../reducers/orderReducer';
 
 import {
   orderDetailsFail,
   orderDetailsRequest,
   orderDetailsSuccess,
-} from "../reducers/orderDetailsReducer";
+} from '../reducers/orderDetailsReducer';
 
 import {
   orderPayFail,
   orderPayRequest,
   orderPaySuccess,
   orderPayReset,
-} from "../reducers/orderPayReducer";
+} from '../reducers/orderPayReducer';
 
 import {
   orderListMyFail,
   orderListMyRequest,
   orderListMySuccess,
-} from "../reducers/orderListMyReducer";
+} from '../reducers/orderListMyReducer';
 
 import {
   orderListFail,
   orderListRequest,
   orderListSuccess,
-} from "../reducers/orderListReducer";
+} from '../reducers/orderListReducer';
 
 import {
   orderDeliverFail,
   orderDeliverRequest,
   orderDeliverReset,
   orderDeliverSuccess,
-} from "../reducers/orderDeliverReducer";
+} from '../reducers/orderDeliverReducer';
 
 export const createOrder = (order) => async (dispatch, getState) => {
   try {
@@ -47,12 +47,16 @@ export const createOrder = (order) => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
 
-    const { data } = await axios.post("/api/orders", order, config);
+    const { data } = await axios.post(
+      'https://techshop-api.onrender.com/api/orders',
+      order,
+      config
+    );
     dispatch(orderCreateSuccess(data));
   } catch (error) {
     dispatch(
@@ -79,7 +83,10 @@ export const getOrder = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/orders/${id}`, config);
+    const { data } = await axios.get(
+      `https://techshop-api.onrender.com/api/orders/${id}`,
+      config
+    );
     dispatch(orderDetailsSuccess(data));
   } catch (error) {
     dispatch(
@@ -103,13 +110,13 @@ export const payOrder =
 
       const config = {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${userInfo.token}`,
         },
       };
 
       const { data } = await axios.put(
-        `/api/orders/${orderId}/pay`,
+        `https://techshop-api.onrender.com/api/orders/${orderId}/pay`,
         paymentResult,
         config
       );
@@ -140,7 +147,7 @@ export const deliverOrder = (order) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.put(
-      `/api/orders/${order._id}/deliver`,
+      `https://techshop-api.onrender.com/api/orders/${order._id}/deliver`,
       {},
       config
     );
@@ -170,7 +177,10 @@ export const listMyOrders = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/orders/myorders`, config);
+    const { data } = await axios.get(
+      `https://techshop-api.onrender.com/api/orders/myorders`,
+      config
+    );
     dispatch(orderListMySuccess(data));
   } catch (error) {
     dispatch(
@@ -197,7 +207,10 @@ export const listOrders = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/orders`, config);
+    const { data } = await axios.get(
+      `https://techshop-api.onrender.com/api/orders`,
+      config
+    );
     dispatch(orderListSuccess(data));
   } catch (error) {
     dispatch(

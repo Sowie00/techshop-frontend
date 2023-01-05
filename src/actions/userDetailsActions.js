@@ -2,31 +2,31 @@ import {
   userDetailsFail,
   userDetailsRequest,
   userDetailsSuccess,
-} from "../reducers/userDetailsReducer";
+} from '../reducers/userDetailsReducer';
 import {
   userUpdateProfileFail,
   userUpdateProfileRequest,
   userUpdateProfileSuccess,
-} from "../reducers/userUpdateProfileReducer";
+} from '../reducers/userUpdateProfileReducer';
 import {
   userListFail,
   userListRequest,
   userListSuccess,
-} from "../reducers/userListReducer";
+} from '../reducers/userListReducer';
 
 import {
   userDeleteFail,
   userDeleteRequest,
   userDeleteSuccess,
-} from "../reducers/userDeleteReducer";
+} from '../reducers/userDeleteReducer';
 
 import {
   userUpdateFail,
   userUpdateRequest,
   userUpdateReset,
   userUpdateSuccess,
-} from "../reducers/userUpdateReducer";
-import axios from "axios";
+} from '../reducers/userUpdateReducer';
+import axios from 'axios';
 
 export const getUserDetails = (id) => async (dispatch, getState) => {
   try {
@@ -38,12 +38,15 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
 
-    const { data } = await axios.get(`/api/users/${id}`, config);
+    const { data } = await axios.get(
+      `https://techshop-api.onrender.com/api/users/${id}`,
+      config
+    );
     dispatch(userDetailsSuccess(data));
   } catch (error) {
     dispatch(
@@ -66,12 +69,16 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
 
-    const { data } = await axios.put("/api/users/profile", user, config);
+    const { data } = await axios.put(
+      'https://techshop-api.onrender.com/api/users/profile',
+      user,
+      config
+    );
     dispatch(userUpdateProfileSuccess(data));
   } catch (error) {
     dispatch(
@@ -98,7 +105,10 @@ export const listUsers = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get("/api/users", config);
+    const { data } = await axios.get(
+      'https://techshop-api.onrender.com/api/users',
+      config
+    );
     dispatch(userListSuccess(data));
   } catch (error) {
     dispatch(
@@ -125,7 +135,10 @@ export const deleteUser = (id) => async (dispatch, getState) => {
       },
     };
 
-    await axios.delete(`/api/users/${id}`, config);
+    await axios.delete(
+      `https://techshop-api.onrender.com/api/users/${id}`,
+      config
+    );
     dispatch(userDeleteSuccess());
   } catch (error) {
     dispatch(
@@ -148,12 +161,16 @@ export const updateUser = (user) => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
 
-    const { data } = await axios.put(`/api/users/${user._id}`, user, config);
+    const { data } = await axios.put(
+      `https://techshop-api.onrender.com/api/users/${user._id}`,
+      user,
+      config
+    );
     dispatch(userUpdateSuccess());
     dispatch(userDetailsSuccess(data));
   } catch (error) {

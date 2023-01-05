@@ -1,13 +1,15 @@
-import axios from "axios";
+import axios from 'axios';
 import {
   addItem,
   removeItem,
   saveShippingInfo,
   savePaymentInfo,
-} from "../reducers/cartReducer";
+} from '../reducers/cartReducer';
 
 export const addToCart = (id, quantity) => async (dispatch, getState) => {
-  const { data } = await axios.get(`/api/products/${id}`);
+  const { data } = await axios.get(
+    `https://techshop-api.onrender.com/api/products/${id}`
+  );
   dispatch(
     addItem({
       product: data._id,
@@ -19,20 +21,20 @@ export const addToCart = (id, quantity) => async (dispatch, getState) => {
     })
   );
 
-  localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
+  localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
 };
 
 export const removeFromCart = (id) => (dispatch, getState) => {
   dispatch(removeItem(id));
-  localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
+  localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
 };
 
 export const cartSaveShippingInfo = (data) => (dispatch) => {
   dispatch(saveShippingInfo(data));
-  localStorage.setItem("shippingAddress", JSON.stringify(data));
+  localStorage.setItem('shippingAddress', JSON.stringify(data));
 };
 
 export const cartSavePaymentInfo = (data) => (dispatch) => {
   dispatch(savePaymentInfo(data));
-  localStorage.setItem("paymentMethod", JSON.stringify(data));
+  localStorage.setItem('paymentMethod', JSON.stringify(data));
 };

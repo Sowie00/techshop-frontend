@@ -2,54 +2,54 @@ import {
   productListRequest,
   productListSuccess,
   productListFail,
-} from "../reducers/productListReducer";
+} from '../reducers/productListReducer';
 import {
   productDetailsRequest,
   productDetailsSuccess,
   productDetailsFail,
-} from "../reducers/productDetailsReducer";
+} from '../reducers/productDetailsReducer';
 import {
   productDeleteFail,
   productDeleteRequest,
   productDeleteSuccess,
-} from "../reducers/productDeleteReducer";
+} from '../reducers/productDeleteReducer';
 
 import {
   productCreateFail,
   productCreateRequest,
   productCreateReset,
   productCreateSuccess,
-} from "../reducers/productCreateReducer";
+} from '../reducers/productCreateReducer';
 
 import {
   productUpdateFail,
   productUpdateRequest,
   productUpdateReset,
   productUpdateSuccess,
-} from "../reducers/productUpdateReducer";
+} from '../reducers/productUpdateReducer';
 
 import {
   productCreateReviewFail,
   productCreateReviewRequest,
   productCreateReviewReset,
   productCreateReviewSuccess,
-} from "../reducers/productCreateReviewReducer";
+} from '../reducers/productCreateReviewReducer';
 
 import {
   productsTopFail,
   productsTopRequest,
   productsTopSuccess,
-} from "../reducers/productsTopReducer";
-import axios from "axios";
+} from '../reducers/productsTopReducer';
+import axios from 'axios';
 
 export const listProducts =
-  (keyword = "", pageNumber = "") =>
+  (keyword = '', pageNumber = '') =>
   async (dispatch) => {
     try {
       dispatch(productListRequest());
 
       const { data } = await axios.get(
-        `/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
+        `https://techshop-api.onrender.com/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
       );
       dispatch(productListSuccess(data));
     } catch (error) {
@@ -68,7 +68,9 @@ export const listProduct = (id) => async (dispatch) => {
     dispatch(productDetailsRequest());
     console.log(id);
 
-    const { data } = await axios.get(`/api/products/${id}`);
+    const { data } = await axios.get(
+      `https://techshop-api.onrender.com/api/products/${id}`
+    );
     dispatch(productDetailsSuccess(data));
   } catch (error) {
     dispatch(
@@ -95,7 +97,10 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
       },
     };
 
-    await axios.delete(`/api/products/${id}`, config);
+    await axios.delete(
+      `https://techshop-api.onrender.com/api/products/${id}`,
+      config
+    );
     dispatch(productDeleteSuccess());
   } catch (error) {
     dispatch(
@@ -122,7 +127,11 @@ export const createProduct = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.post(`/api/products`, {}, config);
+    const { data } = await axios.post(
+      `https://techshop-api.onrender.com/api/products`,
+      {},
+      config
+    );
     dispatch(productCreateSuccess(data));
   } catch (error) {
     dispatch(
@@ -145,13 +154,13 @@ export const updateProduct = (product) => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
 
     const { data } = await axios.put(
-      `/api/products/${product._id}`,
+      `https://techshop-api.onrender.com/api/products/${product._id}`,
       product,
       config
     );
@@ -177,12 +186,16 @@ export const createProductReview =
 
       const config = {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${userInfo.token}`,
         },
       };
 
-      await axios.post(`/api/products/${productId}/reviews`, review, config);
+      await axios.post(
+        `https://techshop-api.onrender.com/api/products/${productId}/reviews`,
+        review,
+        config
+      );
       dispatch(productCreateReviewSuccess());
     } catch (error) {
       dispatch(
@@ -199,7 +212,9 @@ export const listTopProducts = () => async (dispatch) => {
   try {
     dispatch(productsTopRequest());
 
-    const { data } = await axios.get(`/api/products/top`);
+    const { data } = await axios.get(
+      `https://techshop-api.onrender.com/api/products/top`
+    );
     dispatch(productsTopSuccess(data));
   } catch (error) {
     dispatch(

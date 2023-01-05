@@ -2,10 +2,10 @@ import {
   userRegisterRequest,
   userRegisterSuccess,
   userRegisterFail,
-} from "../reducers/userRegisterReducer";
-import axios from "axios";
+} from '../reducers/userRegisterReducer';
+import axios from 'axios';
 
-import { userLoginSuccess } from "../reducers/userLoginReducer";
+import { userLoginSuccess } from '../reducers/userLoginReducer';
 
 export const register = (name, email, password) => async (dispatch) => {
   try {
@@ -13,19 +13,19 @@ export const register = (name, email, password) => async (dispatch) => {
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     };
 
     const { data } = await axios.post(
-      "/api/users",
+      'https://techshop-api.onrender.com/api/users',
       { name, email, password },
       config
     );
     dispatch(userRegisterSuccess(data));
     dispatch(userLoginSuccess(data));
 
-    localStorage.setItem("userInfo", JSON.stringify(data));
+    localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error) {
     dispatch(
       userRegisterFail(

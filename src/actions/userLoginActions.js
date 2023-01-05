@@ -3,29 +3,29 @@ import {
   userLoginSuccess,
   userLoginFail,
   userLogout,
-} from "../reducers/userLoginReducer.js";
-import axios from "axios";
-import { userDetailsReset } from "../reducers/userDetailsReducer.js";
-import { orderListMyReset } from "../reducers/orderListMyReducer";
-import { userListReset } from "../reducers/userListReducer";
+} from '../reducers/userLoginReducer.js';
+import axios from 'axios';
+import { userDetailsReset } from '../reducers/userDetailsReducer.js';
+import { orderListMyReset } from '../reducers/orderListMyReducer';
+import { userListReset } from '../reducers/userListReducer';
 export const login = (email, password) => async (dispatch) => {
   try {
     dispatch(userLoginRequest());
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     };
 
     const { data } = await axios.post(
-      "/api/users/login",
+      'https://techshop-api.onrender.com/api/users/login',
       { email, password },
       config
     );
     dispatch(userLoginSuccess(data));
 
-    localStorage.setItem("userInfo", JSON.stringify(data));
+    localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error) {
     dispatch(
       userLoginFail(
@@ -38,7 +38,7 @@ export const login = (email, password) => async (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
-  localStorage.removeItem("userInfo");
+  localStorage.removeItem('userInfo');
   dispatch(userLogout());
   dispatch(userDetailsReset());
   dispatch(orderListMyReset());
